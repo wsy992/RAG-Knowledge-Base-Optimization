@@ -1,0 +1,112 @@
+{
+  "hit_rate": 81.8,
+  "avg_faithfulness": 0.94,
+  "total_questions": 11,
+  "by_category": {
+    "精确": {
+      "hit": 4,
+      "total": 4,
+      "rate": "100.0%"
+    },
+    "模糊": {
+      "hit": 3,
+      "total": 5,
+      "rate": "60.0%"
+    },
+    "否定": {
+      "hit": 2,
+      "total": 2,
+      "rate": "100.0%"
+    }
+  },
+  "details": [
+    {
+      "question": "核心课程有哪些",
+      "category": "精确",
+      "content": "根据已知信息，澳门城市大学智能科技专业的核心课程包括：数据结构与算法、机器学习、深度学习、数据库系统原理、Python编程、计算机视觉、自然语言处理、大数据技术。",
+      "is_hit": true,
+      "faithfulness": 0.9,
+      "doc_count": 0
+    },
+    {
+      "question": "就业方向是什么",
+      "category": "精确",
+      "content": "根据已知信息，澳门城市大学智能科技专业的就业方向包括：AI 算法工程师、数据分析师、软件开发工程师、数据科学家、机器学习工程师。",
+      "is_hit": true,
+      "faithfulness": 0.9,
+      "doc_count": 0
+    },
+    {
+      "question": "专业特色有哪些",
+      "category": "精确",
+      "content": "根据已知信息，澳门城市大学智能科技专业的专业特色包括：\n1. 理论与实践并重，注重项目实战；\n2. 与行业企业合作，提供实习机会；\n3. 课程设置紧跟技术前沿，涵盖AI、大数据、云计算等热门方向；\n4. 小班教学，注重个性化培养。",
+      "is_hit": true,
+      "faithfulness": 0.9,
+      "doc_count": 0
+    },
+    {
+      "question": "培养目标是什么",
+      "category": "精确",
+      "content": "根据已知信息，澳门城市大学智能科技专业的培养目标是：培养学生在人工智能和数据科学领域的核心能力，能够运用机器学习、深度学习等技术解决实际问题，毕业生可在互联网、金融、医疗、教育等行业从事AI算法、数据分析、软件开发等工作。",
+      "is_hit": true,
+      "faithfulness": 0.9,
+      "doc_count": 0
+    },
+    {
+      "question": "有什么课",
+      "category": "模糊",
+      "content": "根据已知信息，澳门城市大学智能科技专业的核心课程包括：数据结构与算法、机器学习、深度学习、数据库系统原理、Python编程、计算机视觉、自然语言处理、大数据技术。",
+      "is_hit": true,
+      "faithfulness": 0.9,
+      "doc_count": 0
+    },
+    {
+      "question": "学啥的",
+      "category": "模糊",
+      "content": "根据已知信息，澳门城市大学智能科技专业主要学习人工智能、数据科学和软件开发相关的知识和技能，核心课程包括数据结构与算法、机器学习、深度学习、数据库系统原理、Python编程、计算机视觉、自然语言处理、大数据技术等，旨在培养能够运用AI技术解决实际问题的复合型人才。",
+      "is_hit": true,
+      "faithfulness": 0.9,
+      "doc_count": 0
+    },
+    {
+      "question": "能干啥",
+      "category": "模糊",
+      "content": "根据已知信息无法回答该问题。",
+      "is_hit": false,
+      "faithfulness": 1.0,
+      "doc_count": 0
+    },
+    {
+      "question": "有啥优势",
+      "category": "模糊",
+      "content": "根据已知信息无法回答该问题。",
+      "is_hit": false,
+      "faithfulness": 1.0,
+      "doc_count": 0
+    },
+    {
+      "question": "能找什么工作",
+      "category": "模糊",
+      "content": "根据已知信息，澳门城市大学智能科技专业的毕业生可从事以下工作：AI算法工程师、数据分析师、软件开发工程师、数据科学家、机器学习工程师。",
+      "is_hit": true,
+      "faithfulness": 0.9,
+      "doc_count": 0
+    },
+    {
+      "question": "学费多少钱",
+      "category": "否定",
+      "content": "根据已知信息无法回答该问题。",
+      "is_hit": true,
+      "faithfulness": 1.0,
+      "doc_count": 0
+    },
+    {
+      "question": "宿舍怎么样",
+      "category": "否定",
+      "content": "根据已知信息无法回答该问题。",
+      "is_hit": true,
+      "faithfulness": 1.0,
+      "doc_count": 0
+    }
+  ]
+}

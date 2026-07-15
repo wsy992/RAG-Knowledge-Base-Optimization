@@ -1,0 +1,20 @@
+langchain>=0.1.17
+langchain-community>=0.0.36
+langchain-openai>=0.0.6
+chromadb>=0.4.0
+fastapi>=0.109.0
+uvicorn>=0.27.0
+sentence-transformers>=3.0.0
+requests>=2.31.0
+pyyaml>=6.0
+pandas>=2.0.0
+rank-bm25>=0.2.0
+jieba>=0.42.1
+pymupdf>=1.23.0
+openpyxl>=3.1.0
+tqdm>=4.66.0
+# RAGAS
+ragas>=0.4.0
+# LangChain-Chatchat 核心依赖
+streamlit>=1.34.0
+streamlit-antd-components>=1.2.0
