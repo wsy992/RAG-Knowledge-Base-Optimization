@@ -75,7 +75,9 @@ class PipelineConfig:
     reranker_model: str
     top_k: int = 5
     rerank_top_k: int = 3
+    mode: str = "hybrid"
     rewrite_enabled: bool = True
+    rerank_enabled: bool = True
     generation_enabled: bool = True
 
     def __post_init__(self) -> None:
@@ -85,6 +87,8 @@ class PipelineConfig:
             raise ValueError("rerank_top_k must be >= 1")
         if self.rerank_top_k > self.top_k:
             raise ValueError("rerank_top_k must be <= top_k")
+        if self.mode not in {"bm25", "dense", "hybrid"}:
+            raise ValueError("mode must be bm25, dense, or hybrid")
         for name in ("embedding_model", "reranker_model"):
             _required(getattr(self, name), name)
 
