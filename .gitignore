@@ -12,6 +12,8 @@ build/
 .venv/
 venv/
 env/
+.worktrees/
+.pytest_cache/
 
 # IDE
 .vscode/
@@ -27,7 +29,12 @@ Thumbs.db
 config/model_settings.yaml
 
 # Data
-data/
+data/*
+!data/demo_corpus/
+!data/demo_corpus/**
+artifacts/
+reports/*.json
+reports/*.md
 *.db
 
 # Logs

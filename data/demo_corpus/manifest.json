@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "description": "Seven-document demo corpus for the RAG v2 benchmark.",
+  "documents": [
+    {
+      "doc_id": "cityu_intelligent_technology",
+      "title": "澳门城市大学智能科技专业介绍",
+      "file": "cityu_intelligent_technology.txt",
+      "origin": "User-provided local demo source"
+    },
+    {
+      "doc_id": "distributed_training",
+      "title": "分布式训练技术原理",
+      "file": "distributed_training.md",
+      "origin": "LangChain-Chatchat sample corpus"
+    },
+    {
+      "doc_id": "llm_application_principles",
+      "title": "大模型应用技术原理",
+      "file": "llm_application_principles.md",
+      "origin": "LangChain-Chatchat sample corpus"
+    },
+    {
+      "doc_id": "llm_stack_practice",
+      "title": "大模型技术栈实战与应用",
+      "file": "llm_stack_practice.md",
+      "origin": "LangChain-Chatchat sample corpus"
+    },
+    {
+      "doc_id": "llm_stack_algorithms",
+      "title": "大模型技术栈算法与原理",
+      "file": "llm_stack_algorithms.md",
+      "origin": "LangChain-Chatchat sample corpus"
+    },
+    {
+      "doc_id": "instruction_alignment",
+      "title": "大模型指令对齐训练原理",
+      "file": "instruction_alignment.md",
+      "origin": "LangChain-Chatchat sample corpus"
+    },
+    {
+      "doc_id": "inference_optimization",
+      "title": "大模型推理优化策略",
+      "file": "inference_optimization.md",
+      "origin": "LangChain-Chatchat sample corpus"
+    }
+  ]
+}
