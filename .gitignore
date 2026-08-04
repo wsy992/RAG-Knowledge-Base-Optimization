@@ -13,6 +13,7 @@ build/
 venv/
 env/
 .worktrees/
+.pytest_cache/
 
 # IDE
 .vscode/
@@ -31,6 +32,7 @@ config/model_settings.yaml
 data/*
 !data/demo_corpus/
 !data/demo_corpus/**
+artifacts/
 *.db
 
 # Logs

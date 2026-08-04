@@ -1,0 +1,34 @@
+[
+  {
+    "doc_id": "ml-course",
+    "title": "机器学习课程",
+    "source": "ml-course.md",
+    "section": "课程",
+    "chunk_id": "ml-course::chunk-0001",
+    "text": "机器学习课程讲解监督学习、特征工程和模型评估。"
+  },
+  {
+    "doc_id": "database-course",
+    "title": "数据库课程",
+    "source": "database-course.md",
+    "section": "课程",
+    "chunk_id": "database-course::chunk-0001",
+    "text": "数据库系统课程讲解关系模型、SQL 查询和事务管理。"
+  },
+  {
+    "doc_id": "deployment-guide",
+    "title": "部署指南",
+    "source": "deployment-guide.md",
+    "section": "工程",
+    "chunk_id": "deployment-guide::chunk-0001",
+    "text": "部署指南介绍 Docker 镜像、健康检查和服务监控。"
+  },
+  {
+    "doc_id": "vision-course",
+    "title": "计算机视觉课程",
+    "source": "vision-course.md",
+    "section": "课程",
+    "chunk_id": "vision-course::chunk-0001",
+    "text": "计算机视觉课程介绍图像分类、目标检测和视觉特征。"
+  }
+]
