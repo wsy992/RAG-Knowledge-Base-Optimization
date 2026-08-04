@@ -311,13 +311,13 @@ RAG-Knowledge-Base-Optimization/
 
 *本项目的核心代码和配置均为独立完成，体现了在 AI 工程化领域的系统设计能力与持续优化思维。*
 
-## RAG v2 benchmark and trace demo
+## RAG v2 基准评测与链路演示
 
-The v2 implementation is additive: the original Chatchat integration remains the baseline, while `src/rag_v2/` contains a separately controlled pipeline. It uses the seven-document demo corpus under `data/demo_corpus/` and the 60-case benchmark under `eval/dataset.jsonl`.
+v2 实现采用增量方式：保留原有 Chatchat 集成作为基线，同时在 `src/rag_v2/` 中新增一套由项目自行控制的 RAG pipeline。系统使用 `data/demo_corpus/` 下的 7 份演示文档，以及 `eval/dataset.jsonl` 中的 60 道测试题。
 
-The benchmark reports lexical BM25, dense Ollama embeddings, dense plus cross-encoder reranking, hybrid retrieval, and hybrid retrieval with query rewriting. Retrieval scores are Recall@k, MRR, and nDCG. Faithfulness and answer relevancy are only reported through the real RAGAS adapter when a DeepSeek key is configured; the old heuristic evaluator is not used by v2.
+基准评测覆盖 BM25 词法检索、Ollama 向量检索、向量检索加 cross-encoder 重排、混合检索，以及混合检索加查询改写。检索指标包括 Recall@k、MRR 和 nDCG。只有在配置 DeepSeek 密钥后，才会通过真实的 RAGAS adapter 评估 faithfulness 和 answer relevancy；v2 不再使用旧的启发式评估器。
 
-### Windows PowerShell setup
+### Windows PowerShell 配置与运行
 
 ```powershell
 Copy-Item .env.example .env
@@ -327,14 +327,14 @@ python scripts/run_benchmark.py --config config/v2.yaml --output reports/benchma
 powershell -ExecutionPolicy Bypass -File scripts/run_demo.ps1 -Config config/v2.yaml
 ```
 
-The default benchmark command runs all five retrieval configurations. To run real DeepSeek generation and RAGAS on the optimized configuration, set `DEEPSEEK_API_KEY` in `.env` and run:
+默认 benchmark 命令会运行上述 5 种检索配置。如果要在优化后的配置上运行真实的 DeepSeek 生成和 RAGAS 评估，请在 `.env` 中设置 `DEEPSEEK_API_KEY`，然后运行：
 
 ```powershell
 python scripts/run_benchmark.py --config config/v2.yaml --output reports/benchmark --generation-config optimized
 ```
 
-`artifacts/` contains the locally built dense vectors and is intentionally ignored by Git. The index manifest stores a corpus hash, model name, chunk IDs, and vector dimension; changing the corpus invalidates the artifact and triggers a rebuild. `reports/` is also local output, so benchmark results can be regenerated without committing machine-specific paths or credentials.
+`artifacts/` 保存本地构建的向量文件，并被 Git 有意忽略。索引 manifest 记录语料库哈希、模型名称、文档块 ID 和向量维度；语料库发生变化后，旧 artifact 会失效并需要重新构建。`reports/` 同样属于本地输出目录，因此可以随时重新生成 benchmark 结果，而不需要提交机器相关路径或密钥。
 
-### What the demo exposes
+### 演示页面展示内容
 
-The Streamlit page shows the original and rewritten query, retrieved chunks, reranker metadata, grounded answer, allowed citations, and per-stage latency trace. If a provider is unavailable, the pipeline records a fallback or abstention instead of inventing a score.
+Streamlit 页面会展示原始问题、改写后的问题、召回的文档块、重排器元数据、有依据的回答、允许使用的引用，以及各阶段的延迟链路。如果某个服务暂时不可用，pipeline 会记录 fallback 或 abstention 状态，而不是编造评测分数。
