@@ -61,12 +61,21 @@ class DenseIndex:
         self._matrix: np.ndarray | None = None
 
     def build(self, chunks: list[DocumentChunk], embeddings: EmbeddingProvider) -> None:
+        chunks = list(chunks)
+        vectors = embeddings.embed([chunk.text for chunk in chunks])
+        self.build_from_vectors(chunks, vectors)
+
+    def build_from_vectors(
+        self,
+        chunks: list[DocumentChunk],
+        vectors: list[list[float]] | np.ndarray,
+    ) -> None:
         self.chunks = list(chunks)
         if not self.chunks:
             self._matrix = None
             return
 
-        vectors = np.asarray(embeddings.embed([chunk.text for chunk in self.chunks]), dtype=np.float32)
+        vectors = np.asarray(vectors, dtype=np.float32)
         if vectors.ndim != 2 or vectors.shape[0] != len(self.chunks):
             raise ValueError("embedding provider must return one 2-D vector per chunk")
         norms = np.linalg.norm(vectors, axis=1, keepdims=True)

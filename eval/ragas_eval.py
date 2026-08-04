@@ -1,4 +1,7 @@
 """
+LEGACY BASELINE ONLY: this script talks to the old Chatchat API and uses a
+heuristic faithfulness score. Do not use its numbers as the v2 benchmark.
+
 RAGAS 评估脚本: 量化测评 RAG 系统的检索与生成质量
 - Hit Rate: 检索命中率
 - MRR: 最相关结果排名
@@ -11,14 +14,15 @@ RAGAS 评估脚本: 量化测评 RAG 系统的检索与生成质量
 """
 
 import json
+import os
 import sys
 import time
 from pathlib import Path
 
 import requests
 
-# Chatchat API 地址
-API_BASE = "http://127.0.0.1:7861"
+# Legacy Chatchat API baseline. The v2 benchmark does not import this module.
+API_BASE = os.getenv("CHATCHAT_API_BASE", "http://127.0.0.1:7861")
 
 # 测试数据集: (问题, 期望包含的关键词, 所属领域)
 TEST_QUESTIONS = [

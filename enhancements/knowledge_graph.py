@@ -16,6 +16,7 @@
 
 import json
 import logging
+import os
 import re
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -252,10 +253,12 @@ if __name__ == "__main__":
     parser.add_argument("--kb", default="wsy", help="知识库名称")
     parser.add_argument("--rebuild", action="store_true", help="强制重建图谱")
     parser.add_argument("--query", help="搜索测试")
+    parser.add_argument("--api-base", default=os.getenv("CHATCHAT_API_BASE", "http://127.0.0.1:7861"))
+    parser.add_argument("--output-dir", default=os.getenv("RAG_LEGACY_DATA_DIR", "data"))
     args = parser.parse_args()
 
     kg = KnowledgeGraph(args.kb)
-    kg_path = Path(f"D:\\chatchat-project\\data\\kg_{args.kb}.json")
+    kg_path = Path(args.output_dir) / f"kg_{args.kb}.json"
 
     if args.rebuild or not kg_path.exists():
         print(f"Rebuilding knowledge graph for KB: {args.kb}")
@@ -263,7 +266,7 @@ if __name__ == "__main__":
         import requests
         try:
             resp = requests.post(
-                "http://127.0.0.1:7861/knowledge_base/search_docs",
+                f"{args.api_base.rstrip('/')}/knowledge_base/search_docs",
                 json={"query": "", "knowledge_base_name": args.kb, "top_k": 50, "score_threshold": 2.0},
                 timeout=30,
             )
@@ -274,15 +277,9 @@ if __name__ == "__main__":
                     for d in docs
                 ])
                 if all_text:
-                    # 读取 API key
-                    import yaml
-                    with open("model_settings.yaml", "r") as f:
-                        settings = yaml.safe_load(f)
-                    api_key = None
-                    for p in settings.get("MODEL_PLATFORMS", []):
-                        if p["platform_name"] == "deepseek":
-                            api_key = p["api_key"]
-                            break
+                    api_key = os.getenv("DEEPSEEK_API_KEY")
+                    if not api_key:
+                        raise RuntimeError("DEEPSEEK_API_KEY is required for legacy graph extraction")
                     kg = extract_from_documents(all_text, api_key=api_key)
                     kg.save(kg_path)
                 else:

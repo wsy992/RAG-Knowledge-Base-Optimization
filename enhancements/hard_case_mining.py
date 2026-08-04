@@ -188,11 +188,12 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
 
     parser = argparse.ArgumentParser(description="难例挖掘工具")
-    parser.add_argument("--report", default="D:\\chatchat-project\\ragas_report.json", help="RAGAS 评估报告路径")
+    parser.add_argument("--report", default="reports/legacy_ragas_report.json", help="RAGAS 评估报告路径")
     parser.add_argument("--interaction", nargs=3, metavar=("Q", "A", "F"), help="记录单次交互")
+    parser.add_argument("--case-dir", default="data/hard_cases", help="难例数据目录")
     args = parser.parse_args()
 
-    miner = HardCaseMiner(case_dir="D:\\chatchat-project\\data\\hard_cases")
+    miner = HardCaseMiner(case_dir=args.case_dir)
 
     if args.interaction:
         q, a, f = args.interaction

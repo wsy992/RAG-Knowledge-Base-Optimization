@@ -68,3 +68,19 @@ class OllamaEmbeddingProvider:
         if any(not isinstance(vector, list) or not vector for vector in vectors):
             raise EmbeddingProviderError("Ollama returned an invalid embedding vector")
         return vectors
+
+
+class OllamaLangchainEmbeddings:
+    """Small LangChain-compatible adapter used by the RAGAS evaluator."""
+
+    def __init__(self, provider: EmbeddingProvider) -> None:
+        self.provider = provider
+
+    def embed_documents(self, texts: list[str]) -> list[list[float]]:
+        return self.provider.embed(texts)
+
+    def embed_query(self, text: str) -> list[float]:
+        vectors = self.provider.embed([text])
+        if len(vectors) != 1:
+            raise EmbeddingProviderError("embedding provider returned an unexpected query vector count")
+        return vectors[0]

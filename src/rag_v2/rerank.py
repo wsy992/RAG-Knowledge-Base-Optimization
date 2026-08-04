@@ -17,14 +17,21 @@ class CrossEncoderReranker:
         self.model_name = model_name
         self._score_fn = score_fn
         self._model = None
+        self._load_error: Exception | None = None
 
     def _get_score_fn(self) -> Callable[[str, Sequence[str]], Sequence[float]]:
         if self._score_fn is not None:
             return self._score_fn
+        if self._load_error is not None:
+            raise RuntimeError("reranker model is unavailable") from self._load_error
         if self._model is None:
-            from sentence_transformers import CrossEncoder
+            try:
+                from sentence_transformers import CrossEncoder
 
-            self._model = CrossEncoder(self.model_name)
+                self._model = CrossEncoder(self.model_name)
+            except Exception as exc:
+                self._load_error = exc
+                raise
 
         def score(query: str, texts: Sequence[str]) -> Sequence[float]:
             pairs = [(query, text) for text in texts]

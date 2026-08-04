@@ -75,3 +75,13 @@ def test_retrieve_rejects_non_positive_top_k():
 def test_unknown_mode_is_rejected():
     with pytest.raises(ValueError, match="mode"):
         build_retriever().retrieve("机器学习", mode="unknown", top_k=3)
+
+def test_dense_index_can_load_persisted_vectors():
+    chunks = load_chunks()
+    provider = FakeEmbeddingProvider({"query": [1.0, 0.0]})
+    dense = DenseIndex()
+    dense.build_from_vectors(chunks, [[1.0, 0.0] for _ in chunks])
+
+    result = dense.search("query", provider, top_k=1)
+
+    assert result[0].chunk.chunk_id == min(chunk.chunk_id for chunk in chunks)

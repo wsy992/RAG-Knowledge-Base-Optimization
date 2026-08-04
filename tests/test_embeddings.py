@@ -1,6 +1,6 @@
 import pytest
 
-from rag_v2.embeddings import EmbeddingProviderError, OllamaEmbeddingProvider
+from rag_v2.embeddings import EmbeddingProviderError, OllamaEmbeddingProvider, OllamaLangchainEmbeddings
 
 
 class FakeResponse:
@@ -51,3 +51,14 @@ def test_ollama_provider_returns_empty_list_without_network(monkeypatch):
     monkeypatch.setattr("rag_v2.embeddings.requests.post", fail_post)
 
     assert OllamaEmbeddingProvider().embed([]) == []
+
+
+def test_ollama_embeddings_adapter_exposes_langchain_methods():
+    class FakeProvider:
+        def embed(self, texts):
+            return [[float(index), 1.0] for index, _ in enumerate(texts)]
+
+    adapter = OllamaLangchainEmbeddings(FakeProvider())
+
+    assert adapter.embed_documents(["a", "b"]) == [[0.0, 1.0], [1.0, 1.0]]
+    assert adapter.embed_query("a") == [0.0, 1.0]

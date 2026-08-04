@@ -33,6 +33,8 @@ data/*
 !data/demo_corpus/
 !data/demo_corpus/**
 artifacts/
+reports/*.json
+reports/*.md
 *.db
 
 # Logs

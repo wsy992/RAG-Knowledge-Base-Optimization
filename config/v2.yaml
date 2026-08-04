@@ -1,0 +1,16 @@
+# Paths are resolved relative to this file.
+corpus_dir: ../data/demo_corpus
+artifact_dir: ../artifacts
+benchmark_path: ../eval/dataset.jsonl
+
+embedding_model: nomic-embed-text
+reranker_model: BAAI/bge-reranker-v2-m3
+ollama_base_url: http://127.0.0.1:11434
+
+deepseek_base_url: https://api.deepseek.com/v1
+deepseek_model: deepseek-chat
+
+top_k: 5
+rerank_top_k: 3
+max_chars: 500
+overlap: 80

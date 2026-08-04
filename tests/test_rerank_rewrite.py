@@ -1,4 +1,6 @@
 import json
+import sys
+import types
 
 import pytest
 
@@ -45,6 +47,25 @@ def test_cross_encoder_reranker_falls_back_to_candidates_on_provider_failure():
 
     assert [result.chunk.chunk_id for result in results] == ["a::1", "b::1"]
     assert results[0].metadata["rerank_fallback"] is True
+
+
+def test_cross_encoder_reranker_caches_model_load_failure(monkeypatch):
+    calls = []
+
+    class FailingCrossEncoder:
+        def __init__(self, model_name):
+            calls.append(model_name)
+            raise RuntimeError("model unavailable")
+
+    fake_module = types.ModuleType("sentence_transformers")
+    fake_module.CrossEncoder = FailingCrossEncoder
+    monkeypatch.setitem(sys.modules, "sentence_transformers", fake_module)
+    reranker = CrossEncoderReranker("test-reranker")
+
+    reranker.rerank("query", make_candidates(), top_k=2)
+    reranker.rerank("query", make_candidates(), top_k=2)
+
+    assert calls == ["test-reranker"]
 
 
 class FailingChatClient:

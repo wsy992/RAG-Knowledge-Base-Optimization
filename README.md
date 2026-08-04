@@ -3,9 +3,11 @@
 > 基于 LangChain-Chatchat 深度优化的 RAG 系统，集成多轮对话上下文、知识图谱增强、多源联邦检索与自动化评估闭环。
 
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://python.org)
-[![RAGAS](https://img.shields.io/badge/RAGAS-Evaluated-green)](https://github.com/explodinggradients/ragas)
+[![RAGAS](https://img.shields.io/badge/RAGAS-v2%20adapter%20available-blue)](https://github.com/explodinggradients/ragas)
 [![DeepSeek](https://img.shields.io/badge/LLM-DeepSeek--Chat-orange)](https://deepseek.com)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
+
+> The metric table in the original project description is a historical v1 baseline produced by the legacy Chatchat script. Its faithfulness value is heuristic and must not be presented as a real RAGAS result. Use the v2 commands below for reproducible, hash-stamped reports.
 
 ---
 
@@ -308,3 +310,31 @@ RAG-Knowledge-Base-Optimization/
 ---
 
 *本项目的核心代码和配置均为独立完成，体现了在 AI 工程化领域的系统设计能力与持续优化思维。*
+
+## RAG v2 benchmark and trace demo
+
+The v2 implementation is additive: the original Chatchat integration remains the baseline, while `src/rag_v2/` contains a separately controlled pipeline. It uses the seven-document demo corpus under `data/demo_corpus/` and the 60-case benchmark under `eval/dataset.jsonl`.
+
+The benchmark reports lexical BM25, dense Ollama embeddings, dense plus cross-encoder reranking, hybrid retrieval, and hybrid retrieval with query rewriting. Retrieval scores are Recall@k, MRR, and nDCG. Faithfulness and answer relevancy are only reported through the real RAGAS adapter when a DeepSeek key is configured; the old heuristic evaluator is not used by v2.
+
+### Windows PowerShell setup
+
+```powershell
+Copy-Item .env.example .env
+ollama pull nomic-embed-text
+python scripts/build_v2_index.py --config config/v2.yaml
+python scripts/run_benchmark.py --config config/v2.yaml --output reports/benchmark
+powershell -ExecutionPolicy Bypass -File scripts/run_demo.ps1 -Config config/v2.yaml
+```
+
+The default benchmark command runs all five retrieval configurations. To run real DeepSeek generation and RAGAS on the optimized configuration, set `DEEPSEEK_API_KEY` in `.env` and run:
+
+```powershell
+python scripts/run_benchmark.py --config config/v2.yaml --output reports/benchmark --generation-config optimized
+```
+
+`artifacts/` contains the locally built dense vectors and is intentionally ignored by Git. The index manifest stores a corpus hash, model name, chunk IDs, and vector dimension; changing the corpus invalidates the artifact and triggers a rebuild. `reports/` is also local output, so benchmark results can be regenerated without committing machine-specific paths or credentials.
+
+### What the demo exposes
+
+The Streamlit page shows the original and rewritten query, retrieved chunks, reranker metadata, grounded answer, allowed citations, and per-stage latency trace. If a provider is unavailable, the pipeline records a fallback or abstention instead of inventing a score.
