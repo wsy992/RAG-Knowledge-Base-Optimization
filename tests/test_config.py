@@ -36,6 +36,7 @@ def test_load_config_resolves_relative_paths_and_hides_secret(monkeypatch, tmp_p
 
 def test_generation_credentials_are_required_only_for_generation(monkeypatch, tmp_path: Path):
     monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
+    monkeypatch.chdir(tmp_path)
     config = load_config(write_config(tmp_path))
 
     config.validate(requires_generation=False)

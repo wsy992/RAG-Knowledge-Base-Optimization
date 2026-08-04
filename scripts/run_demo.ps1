@@ -6,6 +6,23 @@ $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
 Set-Location $repoRoot
 
+$dotenvPath = Join-Path $repoRoot ".env"
+if ((-not $env:DEEPSEEK_API_KEY) -and (Test-Path $dotenvPath)) {
+    $dotenvLine = Get-Content $dotenvPath |
+        Where-Object { $_ -match '^\s*DEEPSEEK_API_KEY\s*=' } |
+        Select-Object -First 1
+    if ($dotenvLine) {
+        $env:DEEPSEEK_API_KEY = ($dotenvLine -replace '^\s*DEEPSEEK_API_KEY\s*=\s*', '').Trim().Trim('"').Trim("'")
+    }
+}
+
+$srcPath = Join-Path $repoRoot "src"
+if ($env:PYTHONPATH) {
+    $env:PYTHONPATH = "$srcPath;$env:PYTHONPATH"
+} else {
+    $env:PYTHONPATH = $srcPath
+}
+
 $python = $null
 if ($env:RAG_V2_PYTHON) {
     $python = $env:RAG_V2_PYTHON
