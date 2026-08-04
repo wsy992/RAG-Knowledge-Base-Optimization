@@ -54,6 +54,7 @@ class BenchmarkCase:
     reference_answer: str
     answer_points: list[str]
     should_abstain: bool
+    history: list[dict[str, str]] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         for name in ("case_id", "question", "category"):
