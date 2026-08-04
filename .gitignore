@@ -12,6 +12,7 @@ build/
 .venv/
 venv/
 env/
+.worktrees/
 
 # IDE
 .vscode/
@@ -28,6 +29,8 @@ config/model_settings.yaml
 
 # Data
 data/
+!data/demo_corpus/
+!data/demo_corpus/**
 *.db
 
 # Logs
